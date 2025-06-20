@@ -51,7 +51,7 @@ export default function LoginForm({ user }: LoginFormProps) {
   };
 
   return (
-    <>
+    <div className="loginFormBox">
       <h1>Sign in with Email and Password</h1>
       <section id="sectionSignin">
         <h2>Sign in / Sign up</h2>
@@ -88,6 +88,6 @@ export default function LoginForm({ user }: LoginFormProps) {
         <h2>Sign out</h2>
         <button type="button" id="buttonSignout" onClick = {handleSignout}>sign out</button>
       </section>
-    </>
+    </div>
   );
 }
