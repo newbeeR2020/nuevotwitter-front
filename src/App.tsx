@@ -6,6 +6,8 @@ import LoginForm from './LoginForm.js';
 import {fetchTweets, addTweet, likeTweet} from './api.ts';
 import type {User} from 'firebase/auth';
 import type {Tweet, TweetPayload } from './types.ts'
+import type {FormEvent} from 'react';
+
 
 
 
@@ -30,7 +32,7 @@ function App() {
     return unsub;          // アンマウント時に購読解除
   }, []);
 
-  const handleTweet = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleTweet = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const payload: TweetPayload = {text: tweet, visibility: "public"};
     try {
