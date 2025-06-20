@@ -3,7 +3,7 @@ import './App.css'
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase.tsx';
 import LoginForm from './LoginForm.js';
-import {fetchTweets, addTweet, likeTweet, replyTweet} from './api.ts';
+import {fetchTweets, addTweet, likeTweet} from './api.ts';
 import type {User} from 'firebase/auth';
 import type {Tweet, TweetPayload } from './types.ts'
 
@@ -23,14 +23,14 @@ function App() {
         setError("");
         const response = await fetchTweets();
         setTL(response.data);
-      } catch (err) {
+      } catch (err: any) {
         setError(err.message);
       }
     })();
     return unsub;          // アンマウント時に購読解除
   }, []);
 
-  const handleTweet = async (e) => {
+  const handleTweet = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const payload: TweetPayload = {text: tweet, visibility: "public"};
     try {
@@ -38,15 +38,15 @@ function App() {
       await addTweet(payload);
       setTweet("");
       const response = await fetchTweets();
-      setTL(response.data);    } catch (err) {
+      setTL(response.data);    } catch (err: any) {
       setError(err.message);
     }
   }
 
-  const handleLike = async (id) => {
+  const handleLike = async (id: string) => {
     try {
       await likeTweet(id);
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message);
     }
   }
