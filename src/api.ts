@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { Tweet, TweetPayload } from "./types";
+import type { Tweet, TweetPayload, UserPayload} from "./types";
 import { auth } from './firebase.tsx';
 
 // vite では import.meta.env で読む
@@ -18,6 +18,7 @@ api.interceptors.request.use(async cfg => {
   }
   return cfg;
 });
+export const createAccount = (user: UserPayload) => api.post("/api/newaccount", user);
 export const fetchTweets = () => api.get<Tweet[]>("/api/tweets");
 export const addTweet  = (data: TweetPayload) => api.post<Tweet>("/api/tweets", data);
 export const replyTweet = (parentId: string, data: TweetPayload) => api.post<Tweet>(`/api/tweets/${parentId}/reply`, data)

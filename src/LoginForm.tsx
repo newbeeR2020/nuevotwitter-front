@@ -5,8 +5,10 @@ import {
   signOut,
 } from 'firebase/auth';
 import { auth } from './firebase.tsx';
+import {createAccount} from './api.ts';
 import type {FormEvent} from 'react';
 import type {User} from 'firebase/auth';
+import type {UserPayload} from "./types";
 
 interface LoginFormProps {
   user: User | null;
@@ -32,10 +34,17 @@ export default function LoginForm({ user }: LoginFormProps) {
 // sign up handler
   const handleSignup = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const cred = await createUserWithEmailAndPassword(auth, email, password);
       setError('');
       setEmail('');
       setPassword('');
+      const u: User = cred.user;
+      const payload: UserPayload = {
+        email: u.email,
+        displayName: u.displayName,
+        photoURL: u.photoURL,
+      };
+      await createAccount(payload);
     } catch (err: any) {
       setError(err.message);
     };

@@ -39,3 +39,9 @@ export interface User {
   followingCount: number;       // user.friends_count
   isFollowingMe: boolean;       // 相互フォロー判定
 }
+
+export interface UserPayload {
+  email: string | null;
+  displayName: string | null;
+  photoURL: string | null;
+}
