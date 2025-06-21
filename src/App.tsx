@@ -34,6 +34,10 @@ function App() {
 
   const handleTweet = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (tweet == "") {
+      alert ("You have to enter something to tweet!!");
+      return;
+    }
     const payload: TweetPayload = {text: tweet, visibility: "public"};
     try {
       setError("");
