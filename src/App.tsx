@@ -73,7 +73,7 @@ function App() {
       <div className="TL">
         <h2>Tweets</h2>
         {TL.map((t) => (
-          <div className="tweetWindow">
+          <div className="tweetWindow" key = {t.id}>
             <p>text: {t.text}</p>
             <p>author id: {t.authorId}</p>
             <button onClick={ () => handleLike(t.id)}>Like❤️</button>
