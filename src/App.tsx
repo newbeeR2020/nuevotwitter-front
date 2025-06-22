@@ -7,6 +7,7 @@ import {fetchTweets, addTweet, likeTweet} from './api.ts';
 import type {User} from 'firebase/auth';
 import type {Tweet, TweetPayload } from './types.ts'
 import type {FormEvent} from 'react';
+import TweetItem from './TweetItem.tsx'
 
 
 
@@ -30,7 +31,7 @@ function App() {
       }
     })();
     return unsub;          // アンマウント時に購読解除
-  }, []);
+  }, [count]);
 
   const handleTweet = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,6 +40,22 @@ function App() {
       return;
     }
     const payload: TweetPayload = {text: tweet, visibility: "public"};
+    try {
+      setError("");
+      await addTweet(payload);
+      setTweet("");
+      const response = await fetchTweets();
+      setTL(response.data);    } catch (err: any) {
+      setError(err.message);
+    }
+  }
+
+  const handleReply = async (parentId: string, tweet: string) => {
+    if (tweet == "") {
+      alert ("You have to enter something to reply!!");
+      return;
+    }
+    const payload: TweetPayload = {text: tweet, replyToId: parentId, visibility: "public"};
     try {
       setError("");
       await addTweet(payload);
@@ -60,11 +77,10 @@ function App() {
     <>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+          Reload tweets
         </button>
       </div>
       <LoginForm user = {user} />
-      {user ? <div>You are signed in!!</div> : <div>You are signed out!</div>}
       <div className="postingBox">
         <h2>post a tweet (tweet a tweet)</h2>
         <form onSubmit={handleTweet}>
@@ -77,12 +93,7 @@ function App() {
       <div className="TL">
         <h2>Tweets</h2>
         {TL.map((t) => (
-          <div className="tweetWindow" key = {t.id}>
-            <p>text: {t.text}</p>
-            <p>author id: {t.authorId}</p>
-            <button onClick={ () => handleLike(t.id)}>Like❤️</button>
-            <button >Reply🔥</button>
-          </div>
+          <TweetItem key={t.id} tweet={t} onLike={handleLike} onReply={handleReply}/>
         ))}
       </div>
     </>

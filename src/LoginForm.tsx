@@ -97,6 +97,7 @@ export default function LoginForm({ user }: LoginFormProps) {
         <h2>Sign out</h2>
         <button type="button" id="buttonSignout" onClick = {handleSignout}>sign out</button>
       </section>
+      {user ? <div>You are signed in!!</div> : <div>You are signed out!</div>}
     </div>
   );
 }
