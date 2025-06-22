@@ -61,43 +61,51 @@ export default function LoginForm({ user }: LoginFormProps) {
 
   return (
     <div className="loginFormBox">
-      <h1>Sign in with Email and Password</h1>
-      <section id="sectionSignin">
-        <h2>Sign in / Sign up</h2>
-        {/* sign in / sign up form */}
-        <form onSubmit = {handleSignin}>
-          <div>
-            <label htmlFor="inputEmail">Email</label>
-            <input type="email" name="inputEmail" id="inputEmail" value={email} onChange = {(e) => setEmail(e.target.value)} required/>
-          </div>
-          <div>
-            <label htmlFor="inputPassword">Password</label>
-            <input type="password" name="inputPassword" id="inputPassword" value={password} onChange = {(e) => setPassword(e.target.value)} required/>
-          </div>
-          <button type="submit" id="buttonSignin" aria-describedby="errorMessage" >Sign in</button>
-          or
-          <button type="button" id="buttonSignup" aria-describedby="errorMessage" onClick = {handleSignup}>Sign up</button>
-        </form>
-        {/* error message */}
-        {error ? <p id = "errorMessage" style = {{color : "red"}}>{error}</p> : null}
-      </section>
-      {/* user information */}
-      <section id="sectionUser">
-        <h2>User Information</h2>
-        {user ?
-          <dl>
-          <dt>user id</dt>
-          <dd id="uid">{user.uid}</dd>
-          <dt>user email address</dt>
-          <dd id="uemail">{user.email}</dd>
-        </dl>: null}
-      </section>
-      {/* sign out button */}
-      <section id="sectionSignout">
-        <h2>Sign out</h2>
-        <button type="button" id="buttonSignout" onClick = {handleSignout}>sign out</button>
-      </section>
       {user ? <div>You are signed in!!</div> : <div>You are signed out!</div>}
+      {/* when logged out */}
+      {!user && (
+        <>
+          <h1>Sign in with Email and Password</h1>
+          <section id="sectionSignin">
+            <h2>Sign in / Sign up</h2>
+            {/* sign in / sign up form */}
+            <form onSubmit = {handleSignin}>
+              <div>
+                <label htmlFor="inputEmail">Email</label>
+                <input type="email" name="inputEmail" id="inputEmail" value={email} onChange = {(e) => setEmail(e.target.value)} required/>
+              </div>
+              <div>
+                <label htmlFor="inputPassword">Password</label>
+                <input type="password" name="inputPassword" id="inputPassword" value={password} onChange = {(e) => setPassword(e.target.value)} required/>
+              </div>
+              <button type="submit" id="buttonSignin" aria-describedby="errorMessage" >Sign in</button>
+              or
+              <button type="button" id="buttonSignup" aria-describedby="errorMessage" onClick = {handleSignup}>Sign up</button>
+            </form>
+            {/* error message */}
+            {error ? <p id = "errorMessage" style = {{color : "red"}}>{error}</p> : null}
+          </section>
+        </>
+      )}
+      {/* when logged in */}
+      {user && (
+        <>
+          <section id="sectionUser">
+            <h2>User Information</h2>
+            {user ?
+              <dl>
+              <dt>user id</dt>
+              <dd id="uid">{user.uid}</dd>
+              <dt>user email address</dt>
+              <dd id="uemail">{user.email}</dd>
+            </dl>: null}
+          </section>
+          <section id="sectionSignout">
+            <button type="button" id="buttonSignout" onClick = {handleSignout}>sign out</button>
+          </section>
+        </>
+      )}
+      {/* login status */}
     </div>
   );
 }

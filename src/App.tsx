@@ -91,30 +91,34 @@ function App() {
     </div>
   )
   return (
-    <>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          Reload tweets
-        </button>
-      </div>
+    <div className="appContainer">
       <LoginForm user = {user} />
-      <div className="postingBox">
-        <h2>post a tweet (tweet a tweet)</h2>
-        <form onSubmit={handleTweet}>
-          <label>Your tweet</label>
-          <input type="text" value={tweet} onChange = {(e) => setTweet(e.target.value)}></input>
-          <button type="submit">tweet</button>
-        </form>
-        {error ? <p id = "errorMessage" style = {{color : "red"}}>{error}</p> : null}
-      </div>
-      <div className="TL">
-        <h2>Tweets</h2>
-        {TL
-          .filter(t => !t.replyToId)
-          .map(parent => renderThread(parent))
-        }
-      </div>
-    </>
+      {user && (
+        <main className="mainContainer">
+          <div className="card">
+            <button onClick={() => setCount((count) => count + 1)}>
+              Reload tweets
+            </button>
+          </div>
+          <div className="postingBox">
+            <h2>post a tweet (tweet a tweet)</h2>
+            <form onSubmit={handleTweet}>
+              <label>Your tweet</label>
+              <input type="text" value={tweet} onChange = {(e) => setTweet(e.target.value)}></input>
+              <button type="submit">tweet</button>
+            </form>
+            {error ? <p id = "errorMessage" style = {{color : "red"}}>{error}</p> : null}
+          </div>
+          <div className="TL">
+            <h2>Tweets</h2>
+            {TL
+              .filter(t => !t.replyToId)
+              .map(parent => renderThread(parent))
+            }
+          </div>
+        </main>
+      )}
+    </div>
   )
 }
 
