@@ -9,6 +9,11 @@ interface Props {
 export default function TweetItem({tweet, onLike, onReply}: Props) {
   const [isReplying, setIsReplying] = useState(false);
   const [replyText, setReplyText] =useState("");
+  // high レベル用に「表示許可」を管理する state
+  const [showHighContent, setShowHighContent] = useState(false)
+
+  const isHigh = tweet.misinformationLevel === 'high'
+  const isMedium = tweet.misinformationLevel === 'medium'
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,8 +22,25 @@ export default function TweetItem({tweet, onLike, onReply}: Props) {
     setIsReplying(false);
   }
 
+  if (isHigh && !showHighContent) {
+    return (
+      <div className="tweetWindow" key={tweet.id}>
+        <p style={{ color: 'red' }}>⚠️ 誤情報の警告があります。</p>
+        <button onClick={() => setShowHighContent(true)}>
+          ツイートを表示する
+        </button>
+      </div>
+    )
+  }
+
   return (
     <div className="tweetWindow" key = {tweet.id}>
+      {(isMedium || isHigh) && (
+        <>
+          <p style={{ color: 'orange' }}>⚠️ 誤情報の警告があります。</p>
+          <p>理由：{tweet.misinformationReason}</p>
+        </>
+      )}
       <p>text: {tweet.text}</p>
       <p>author id: {tweet.authorId}</p>
       <button onClick={ () => onLike(tweet.id)}>Like❤️</button>

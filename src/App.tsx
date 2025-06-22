@@ -73,6 +73,23 @@ function App() {
       setError(err.message);
     }
   }
+  const renderThread = (tweet: Tweet) => (
+    <div key={tweet.id}>
+      <TweetItem
+        tweet={tweet}
+        onLike={handleLike}
+        onReply={handleReply}
+      />
+      {TL
+        .filter(child => child.replyToId === tweet.id)
+        .map(child => (
+          <div key={child.id} className="reply">
+            {renderThread(child)}
+          </div>
+        ))
+      }
+    </div>
+  )
   return (
     <>
       <div className="card">
@@ -92,9 +109,10 @@ function App() {
       </div>
       <div className="TL">
         <h2>Tweets</h2>
-        {TL.map((t) => (
-          <TweetItem key={t.id} tweet={t} onLike={handleLike} onReply={handleReply}/>
-        ))}
+        {TL
+          .filter(t => !t.replyToId)
+          .map(parent => renderThread(parent))
+        }
       </div>
     </>
   )

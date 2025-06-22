@@ -15,6 +15,8 @@ export interface Tweet {
   mentions: string[];           // リプライと＠によるメンション
   mediaUrls?: string[];         // 画像・動画 URL（将来の拡張用）
   visibility: Visibility;       // 公開や鍵などの視認性を示す属性
+  misinformationLevel: string; // high | middle | low
+  misinformationReason: string;
 }
 
 // tweetするときにユーザーが送るpayload

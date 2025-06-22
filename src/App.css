@@ -40,3 +40,9 @@
 .read-the-docs {
   color: #888;
 }
+
+.reply {
+  margin-left: 20px;
+  border-left: 2px solid #ccc;
+  padding-left: 10px;
+}
