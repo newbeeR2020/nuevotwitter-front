@@ -38,13 +38,13 @@ export default function TweetItem({tweet, onLike, onReply}: Props) {
       {(isMedium || isHigh) && (
         <>
           <p style={{ color: 'orange' }}>⚠️ 誤情報の警告があります。</p>
-          <p>理由：{tweet.misinformationReason}</p>
         </>
       )}
       <p>text: {tweet.text}</p>
       <p>author id: {tweet.authorId}</p>
       <p>likes {tweet.likeCount}</p>
-      <p>misinfomation level: {tweet.misinformationLevel}</p>
+      <p>誤情報の度合い: {tweet.misinformationLevel}</p>
+      <p>理由：{tweet.misinformationReason}</p>
       <button onClick={ () => onLike(tweet.id)}>Like❤️</button>
       {isReplying ? (
         <form onSubmit={handleSubmit}>

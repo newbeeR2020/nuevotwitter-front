@@ -46,3 +46,12 @@
   border-left: 2px solid #ccc;
   padding-left: 10px;
 }
+
+.tweetWindow {
+  border: 2px solid indigo;
+  border-radius: 8px;            /* 角を少し丸く */
+  padding: 16px;                 /* 内側の余白 */
+  margin: 12px 0;                /* 上下の間隔 */
+  max-width: 600px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 軽い影をつけて浮かせる感じ */
+}
