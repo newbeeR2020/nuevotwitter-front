@@ -43,6 +43,8 @@ export default function TweetItem({tweet, onLike, onReply}: Props) {
       )}
       <p>text: {tweet.text}</p>
       <p>author id: {tweet.authorId}</p>
+      <p>likes {tweet.likeCount}</p>
+      <p>misinfomation level: {tweet.misinformationLevel}</p>
       <button onClick={ () => onLike(tweet.id)}>Like❤️</button>
       {isReplying ? (
         <form onSubmit={handleSubmit}>
