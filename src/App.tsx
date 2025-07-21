@@ -31,7 +31,7 @@ function App() {
       }
     })();
     return unsub;          // アンマウント時に購読解除
-  }, [count]);
+  }, [count, user]);
 
   const handleTweet = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
